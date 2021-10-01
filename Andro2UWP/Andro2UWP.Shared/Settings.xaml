@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="Andro2UWP.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Andro2UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:not_win="http://uno.ui/not_win"
+    mc:Ignorable="d not_win" Loaded="uiPage_Loaded">
+
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition  />
+            <RowDefinition Height="Auto" />
+            <!-- na android commandbar -->
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="18" HorizontalAlignment="Center" x:Uid="uiSettingsTitle" Text="Settings" />
+        <TextBlock FontSize="10" HorizontalAlignment="Center" Text="." x:Name="uiVersion" Grid.Row="1"/>
+        <StackPanel Grid.Row="2">
+
+            <StackPanel x:Name="uiSettingsSource" win:Visibility="Collapsed" >
+                <TextBox x:Name="uiCounter" x:Uid="uiCounter" Header="Current counter" InputScope="Number" />
+                <TextBox x:Name="uiDeviceName" x:Uid="uiDevName" Header="Device name" />
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Uid="uiPermiss" Text="Permissions" VerticalAlignment="Center"/>
+                    <Button x:Uid="uiAccessibility" Content="Accessibility" Grid.Column="1" Click="uiPermissAccess_Click" />
+                    <Button x:Uid="uiBattery" Content="Battery" Grid.Column="2" Click="uiPermissBattery_Click" />
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="uiSettingsDrain" not_win:Visibility="Collapsed" >
+                <ToggleSwitch x:Name="uiCreateToasts" Header="Create toasts from remote data" />
+            </StackPanel>
+
+            <!-- wspolne dla obu -->
+            <ToggleSwitch x:Uid="uiDebugLog" OnContent="Add debug info to log" OffContent="Shorter log" Name="uiDebugLog" />
+            <!-- <Grid Margin="5" Visibility="Collapsed" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Show file" VerticalAlignment="Center"/>
+                <Button Content="sender renames" Grid.Column="1" Click="uiShowRenames_Click" />
+                <Button Content="filters" Grid.Column="2" Click="uiShowFilters_Click" />
+            </Grid> -->
+            <!--<TextBox Header="How many last notification show" InputScope="Number" x:Uid="uiHowMany" win:Visibility="Collapsed" />-->
+            <ToggleSwitch Header="Sort toast list" OnContent="Descending" OffContent="Ascending" Name="uiSortListMode" />
+            <Button x:Uid="uiResetList" Content="Reset cache list" Click="uiResetList_Click" Visibility="Collapsed"  />
+            <Button HorizontalAlignment="Center" x:Uid="uiSave" Content="Save!" Click="uiSave_Click" Margin="0,20,0,0" />
+        </StackPanel>
+
+    </Grid>
+</Page>

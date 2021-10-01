@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Hello">Hello World, Click Me!</string>
+    <string name="ApplicationName">Andro2UWP</string>
+    <string name="AccessibilityServiceDescription">If you want me to send Notifications to OneDrive (to UWP companion app), I need access to Notifications :)</string>
+</resources>
