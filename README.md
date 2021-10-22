@@ -12,7 +12,7 @@
  Google store, https://play.google.com/store/apps/details?id=pkar.Andro2UWP
 
 # Privacy policy
- http://beskid.geo.uj.edu.pl/p/ms/andro2uwp-privacy.htm
+ https://github.com/pkar70/Andro2UWP/wiki/Privacy-policy
 
 
 
