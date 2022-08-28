@@ -1,0 +1,2 @@
+ECHO H:\Home\PIOTR\VStudio\_Vs2017\Andro2UWP\Andro2UWP\Andro2UWP.Droid\Assets\_tudus.txt testowa linia 
+"Usuwanie NUGET z app - tylko w VBlib" 

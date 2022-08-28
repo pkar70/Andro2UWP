@@ -1,0 +1,138 @@
+
+---- NAUKA NAUKA NAUKA NAUKA NAUKA NAUKA NAUKA NAUKA -----------
+
+1) Logging, takie jak jest w Uno, bo może się to do czegoś przydać (np. DumpCurrMethod może robić dokładniejszą info?)
+
+2) $"string{insert}" co mogłoby uprościć niektóre wyrażenia stringowe
+https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/strings/interpolated-strings
+
+ Dim msg As String = $"Hi, Welcome {(If(name = "Suresh", "Admin", "Guest"))}"
+Dim msg As String = $"Hi {name}, Today is {Date.Now.DayOfWeek} and it's {Date.Now:HH:mm} now.
+        Welcome to Tutlane World
+        Your location is {location}"
+
+
+3) <ControlTemplate> czy inszy CustomControl i jego wykorzystanie
+3a) Slider + po prawej stronie jego Value, może to {Binding <path>, RelativeSource={RelativeSource TemplatedParent}} albo w ramach DataContext {Binding Path=a.b.c} - w ramach DataContext
+
+4) WinAppSDK i Store
+
+5) WinUI3 vbproj
+5a) porownac cmdline app, nową zrobioną (a więc C) oraz to co zrobiłem z VB - czym się różnią
+
+6) vsix zrobić który w VB do Dim cos = ,,, dodawałby Dim cos As TYPE, i ew. zamiana var na typ.
+ (korzystając z source do tego co podaje typy:
+https://marketplace.visualstudio.com/items?itemName=Jonkers.VarTypeViewerVsix
+https://marketplace.visualstudio.com/items?itemName=AlexanderGayko.VarAdorner
+tylko jeden GitHub: https://github.com/jonkeda/VarTypeViewer )
+
+7) cmd, wysylajacy wszystkie zmiany w vs2017 (commit: chore: autosave data, push)
+
+8) VSIX, który bylby "version changer", bo https://marketplace.visualstudio.com/items?itemName=Newky2k.VersionChanger nie robi z Manifest
+
+---- ZMIANY w app -- ZMIANY w app -- ZMIANY w app -------------
+
+**MazurCic**
+	porównanie po latach? jak się zmienia dynamizm, w czym są różnice
+
+
+**GeneticChild**
+	email z prawdop dziecka, jest 0.0762959999999999 zamiast 8 % :)
+
+**VSIXgetType**
+	(nowe)
+
+---- ZMIANY we wszystkich app -- ZMIANY we wszystkich app -------------
+
+1) VBlib, jedynie z plikiem pkarlibmodule i zmiana z pkarmodule na pkarmodulewithlib
+ using vb14 = VBlib.pkarlibmodule14;
+ [cel: jeden plik, bez konieczności sync pkarmod, pkarmodwithlib, pkarlibmod]
+
+2) wstawienie zmiennych do defs.ini w vblib
+ [cel: porządek w zmiennych, a'la dokumentacja]
+
+2.1) dodać plik changes.txt, i tam przenieść zmiany z mainpage; w nim sekcja *TODO* i wpisywać pomysły
+
+3) InitLib
+
+4) migracja wywołań pkarmodule->vb14
+
+5) dla Uno, zrobienie tak by działało RemoteSystems (w App.cs)
+ [cel: żeby przechodząc do Uno nie tracić funkcjonalności]
+
+6) Settings na Extensions
+ [cel: ułatwienie przy migracji do MAUI]
+
+7) migracja GetLangString do VBlib
+ [cel: ułatwienie przy migracji do MAUI]
+
+8) WinUI 2 (nuget Microsoft.UI.XAML)
+ [cel: ładniejsze czasem]
+
+8a) RadioMenuFlyoutItem (2.1), można robić z ToggleMenuFlyoutItem, bo samo się przełącza
+8b) wieksze upakowanie (2.1) <Grid.Resources><ResourceDictionary Source="ms-appx:///Microsoft.UI.Xaml/DensityStyles/Compact.xaml" /></Grid.Resources>
+8c) RadioButtons (2.3), może być Items z ItemsSource
+8d) Expander (2.6), detailsy chowalne (wiele app, głównie w ListView)
+8e) DropDownButton (2.0), wybór akcji 
+
+9) sprawdzać wszystkie TextBox, na InputScope, spellcheck, history
+ [cel: żeby było porządnie]
+
+10) nr wersji zawsze sprawdzać (Package), i ujednolicać
+ [cel: żeby było porządnie]
+
+11) migracja rzeczy z *vb/*cs do vblib/vb
+ [cel1: uratowanie kodu VB przy migracji do Uno]
+ [cel2: ułatwienie przy migracji do MAUI]
+
+ jako Private inVb As new vblib.[klasa], z możliwością przekazania parametrów (choćby delegated do czegoś) w ctor
+
+12) Converters, budować sobie bibliotekę własnych i zacząć tego używać
+ [cel: uproszcznie kodu, usunięcie "Display" propertiesów budowanych z 'binary' properties
+
+12_) może część jako dodatkowe Public Property Display {get {return $"{this.CompositionName} by {this.ArtistName}, released: " + this.ReleaseDateTime.ToString("d");
+12a) KonwerterVisibility
+12b) KonwerterMAC
+12c) KOnwerterVal2StringFormat
+
+    xmlns:myConv="using:pkarConv" 
+        <myConv:KonwersjaVisibility x:Key="KonwersjaVisibility" />
+
+
+
+13) Bindingsy
+ [cel: przerzucanie kodu z VB/CS do XAML]
+
+13a) tam, gdzie jest read/only itp., próbować przechodzić na x:Bind [cel: x:Bind ma string.format i ogólnie funkcje, oraz jest ponoć szybszy]
+13b) TargetNullValue=0  zamiast innego kombinowania dla Null
+13c) {Binding Width, RelativeSource={RelativeSource Self}} - zależny sam od siebie
+13d) {Binding <path>, RelativeSource={RelativeSource TemplatedParent}} - że do elementu w ramach ListView:DataTemplate
+13e) {Binding Path=a.b.c} - w ramach DataContext
+
+
+14) <ControlTemplate> czy inszy CustomControl
+ [cel: uproszczenie kodu, reusable controls, jednolitość moich app]
+
+15) List oraz Details dla Selected (https://docs.microsoft.com/en-us/windows/u[Windows App SDKwp/data-binding/data-binding-quickstart)
+
+16) aktualizacja Nugetow
+
+
+---- ZMIANY w App NOT telefon -------------
+
+1) można migrować do WinUI 3: minimum version 1809 (build 17763) tyle że bez znaczenia, bo po oderwaniu się od telefonu może być i jeszcze nowsze
+ czyli Windows App SDK (WinAppSDK), dawniej Reunion
+
+2) https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/migrate-to-windows-app-sdk-ovw
+
+3) wtedy to nie będzie UWP, i będzie desktop-only, co być może i tak przejdzie do Uno,  
+
+
+------------------------ c#			VB		VB		VB
+WinUI3 desktop app	ClassLibWinUI3desk	ClassLibUWP	ClassLib14	ClassLib20
+UnoNe6Android		ClassLibWinUI3desk	-----------	ClassLib14	ClassLib20
+UnoNet6UWP		-----------------	ClassLibUWP	ClassLib14	ClassLib20
+UnoXamarinAdroid	ClassLibWinUI3desk	-----------	ClassLib14	ClassLib20
+UnoNet6UWP		------------------	ClassLibUWP	ClassLib14	ClassLib20
+UWPnontel		------------------ 	ClassLibUWP	ClassLib14	ClassLib20
+"Usuwanie NUGET z app - tylko w VBlib" 
